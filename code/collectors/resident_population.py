@@ -87,6 +87,7 @@ def run(cfg: dict):
     # 저장 
 
     out_csv = cfg.get("output_csv")
+    out_csv = replace_latest_dated_file(out_csv)
     out.to_csv(out_csv, index=False, encoding="utf-8-sig")
     # 메타데이터 기록
     key = cfg.get("metadata_key", "resident_population")
