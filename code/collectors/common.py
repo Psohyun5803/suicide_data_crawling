@@ -106,7 +106,6 @@ def fetch_to_df(url: str) -> pd.DataFrame:
     # ✅ 2) dict 케이스: 에러 or 래핑된 결과
     if isinstance(data, dict):
         # (A) KOSIS "데이터 없음"은 err=30 → 예외가 아니라 빈 DF로 처리
-        # - 서버가 빈 리스트 대신 {"err":"30","errMsg":"데이터가 존재하지 않습니다."} 형태로 줌
         if str(data.get("err", "")).strip() == "30":
             return pd.DataFrame()
 
@@ -116,12 +115,12 @@ def fetch_to_df(url: str) -> pd.DataFrame:
         if any(k in data for k in err_keys):
             raise ValueError(f"KOSIS API returned error dict: {data}")
 
-        # (C) dict 안에 list가 들어있는 형태(가끔 있음)
+        # (C) dict 안에 list가 들어있는 형태
         for key in ["data", "items", "rows", "list", "result", "RESULT"]:
             if key in data and isinstance(data[key], list):
                 return pd.DataFrame(data[key])
 
-        # (D) 정말 애매하면 dict 1행으로 반환(디버깅용)
+        # (D) (디버깅용)
         return pd.DataFrame([data])
 
     raise ValueError(f"Unexpected JSON response type: {type(data)}")

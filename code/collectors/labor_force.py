@@ -84,7 +84,7 @@ def run(cfg: dict) -> dict:
         "max_date": wide["date"].max() if not wide.empty else None,
     })
 
-    print("✅ labor_force 저장:", out_csv, "rows:", len(wide), "max_date:", (wide["date"].max() if not wide.empty else None))
+    print("✅ Labor_Force 저장:", out_csv, "rows:", len(wide), "max_date:", (wide["date"].max() if not wide.empty else None))
     return {
         "saved_to": out_csv,
         "rows": int(wide.shape[0]),

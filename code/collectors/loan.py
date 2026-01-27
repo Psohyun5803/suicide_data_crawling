@@ -51,5 +51,5 @@ def run(cfg: dict):
         "max_date": wide["date"].max() if not wide.empty else None,
     })
 
-    print("✅ loan 저장:", out_csv, "rows:", len(wide), "max_date:", wide["date"].max() if not wide.empty else None)
+    print("✅ Loan 저장:", out_csv, "rows:", len(wide), "max_date:", wide["date"].max() if not wide.empty else None)
     
