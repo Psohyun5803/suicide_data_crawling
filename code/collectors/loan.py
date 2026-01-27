@@ -33,7 +33,7 @@ def run(cfg: dict):
     )
     wide = wide[[c for c in wanted if c in wide.columns]].reset_index()
     wide = wide.rename(columns={date_col: "date"})
-    wide["date"] = pd.to_datetime(wide["date"].astype(str), format="%Y%m").dt.strftime("%Y-%m")
+    wide["date"] = pd.to_datetime(wide["date"], format="%Y%m").dt.strftime("%Y-%m")
 
     # 3) 저장
     out_csv = cfg["output_csv"]

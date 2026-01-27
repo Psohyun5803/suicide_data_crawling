@@ -50,7 +50,6 @@ def run(cfg: dict):
 
     # 연령 '계' 제거(있으면)
     raw = raw[raw["C2_NM"] != "계"].copy()
-    print(raw.head(5))
     
     # 연령 파싱: "0세" -> 0, "100세 이상" -> 100
     def parse_age(s: str):
@@ -85,8 +84,6 @@ def run(cfg: dict):
     out["date"] = pd.to_datetime(out["date"], format="%Y%m").dt.strftime("%Y-%m")
 
     out.reset_index()
-    print(out.head(5))
-
     # 저장 
 
     out_csv = cfg.get("output_csv")
@@ -98,7 +95,6 @@ def run(cfg: dict):
         "source_url": cfg.get("openapi_url"),
         "rows": int(out.shape[0]),
         "max_date": out["date"].max() if not out.empty else None,
-        "columns": list(out.columns),
     })
 
     print("✅ Resident_Population 저장:", out_csv, "rows:", len(out), "max_date:", out["date"].max())

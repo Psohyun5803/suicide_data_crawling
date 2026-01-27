@@ -11,12 +11,13 @@ def run(cfg: dict):
     url =cfg["openapi_url"] #지표누리 api는 항상 최신 값을 반환 
     df = fetch_to_df(url)
     df.columns = df.columns.astype(str).str.strip()
-    df = df[df[date_col].str.len() == 6].copy() # monthly 지표만 받아오게 됩니다
+    
     
     
     date_col =  "시점"
     value_col =  "값"
     item_col = "항목이름"
+    df = df[df[date_col].str.len() == 6].copy() # monthly 지표만 받아오게 됩니다
 
     df = df[[date_col,item_col,value_col]].copy()
     df = df[df[item_col].isin(["근로일수"])].copy()
@@ -36,9 +37,9 @@ def run(cfg: dict):
   
     wide = wide.rename(columns = {"시점":"date"})
     if wide["date"].str.len().iloc[0] == 6:
-        wide["date"] = pd.to_datetime(wide["date"], format="%Y%m").dt.strftime("%Y-%m").astype(str).str.replace("-", "_", regex=False)
+        wide["date"] = pd.to_datetime(wide["date"], format="%Y%m").dt.strftime("%Y-%m")
     else:
-        wide["date"] = pd.to_datetime(wide["date"], format="%Y").dt.strftime("%Y").astype(str).str.replace("-", "_", regex=False)
+        wide["date"] = pd.to_datetime(wide["date"], format="%Y").dt.strftime("%Y")
         
     out_csv = cfg["output_csv"]
     ensure_parent_dir(out_csv)

@@ -18,7 +18,7 @@ def run(cfg: dict):
     df = df.rename(columns={"PRD_DE": "date", "DT": "cpi"})
 
     df["cpi"] = pd.to_numeric(df["cpi"], errors="coerce")
-    df["date"] = pd.to_datetime(df["date"].astype(str), format="%Y%m").dt.strftime("%Y-%m")
+    df["date"] = pd.to_datetime(df["date"], format="%Y%m").dt.strftime("%Y-%m")
     df = df.sort_values("date").reset_index(drop=True)
 
     # 3) 저장

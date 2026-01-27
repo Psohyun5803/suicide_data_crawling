@@ -82,7 +82,6 @@ def run(cfg: dict) -> dict:
         "source_url": url,
         "rows": int(wide.shape[0]),
         "max_date": wide["date"].max() if not wide.empty else None,
-        "columns": list(wide.columns),
     })
 
     print("✅ labor_force 저장:", out_csv, "rows:", len(wide), "max_date:", (wide["date"].max() if not wide.empty else None))

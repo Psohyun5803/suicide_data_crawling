@@ -21,10 +21,9 @@ def run(cfg: dict):
     })
 
     if df["date"].str.len().iloc[0] == 6:
-        df["date"] = pd.to_datetime(df["date"], format="%Y%m").dt.strftime("%Y-%m").astype(str).str.replace("-", "_", regex=False)
+        df["date"] = pd.to_datetime(df["date"], format="%Y%m").dt.strftime("%Y-%m")
     else:
-        df["date"] = pd.to_datetime(df["date"], format="%Y").dt.strftime("%Y").astype(str).str.replace("-", "_", regex=False)
-    
+        df["date"] = pd.to_datetime(df["date"], format="%Y").dt.strftime("%Y")
     # 3) 저장
     out_csv = cfg["output_csv"]
     ensure_parent_dir(out_csv)
