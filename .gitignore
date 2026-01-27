@@ -1,0 +1,16 @@
+# python
+__pycache__/
+*.pyc
+
+# editor
+.vscode/
+
+# data & outputs
+data/
+*.csv
+metadata.json
+
+# env
+.env
+.venv/
+venv/
