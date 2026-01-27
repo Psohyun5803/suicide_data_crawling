@@ -4,15 +4,9 @@ KOSIS / 지표누리 데이터를 수집하여
 인구, 경제, 노동 관련 지표를 자동으로 크롤링하는 프로젝트입니다.
 
 ## 📁 프로젝트 구조
+<img width="383" height="167" alt="image" src="https://github.com/user-attachments/assets/1e405185-0abc-432f-acff-cb6e17c51381" />
 
-suicide_data_crawling/
-├─ code/
-│ ├─ main.py # 실행 진입점
-│ ├─ config.yaml # 수집 설정 파일
-│ ├─ collectors/ # 지표별 수집 로직
-│ └─ utils/ # 공통 유틸
-├─ data/ # 실행 시 결과 CSV 생성 (git 제외)
-└─ .gitignore
+
 
 ## 📦 필수 설치 패키지
 
