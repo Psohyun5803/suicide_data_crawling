@@ -32,7 +32,7 @@ def run(cfg: dict) -> dict:
         raise KeyError(f"ITM_NM 컬럼이 없습니다. columns={list(df.columns)}")
     if group_col not in df.columns:
         raise KeyError("‘계’를 담는 분류 컬럼(C1_NM 등)을 찾지 못했습니다.")
- 
+    
     # 3) 계만 필터
     df2 = df[df[group_col].astype(str).str.strip().eq("계")].copy()
 

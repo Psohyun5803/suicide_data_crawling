@@ -25,8 +25,8 @@ def run(cfg: dict):
         sleep_s=0.3
     ) # 40000셀 제한으로 인해 6개월 단위로 끊어서 데이터를 가져옵니다
     
-    # 전처리
-
+    
+    
     raw.columns = raw.columns.astype(str).str.strip()
     raw = raw[raw["C2_NM"] == "전규모(1인이상)"].copy() # 계 데이터만 불러옵니다 
 
@@ -66,5 +66,5 @@ def run(cfg: dict):
         "max_date": wide["date"].max() if not wide.empty else None,
     })
 
-    print("✅ Working_Index 저장:", out_csv, "rows:", len(wide), "max_date:", wide["date"].max() if not wide.empty else None)
+    print("✅ Working_Index 저장:", out_csv, "rows:", len(wide), "max_date:", wide["date"].max() if not wide.empty else None) 
     
