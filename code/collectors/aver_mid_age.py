@@ -1,3 +1,4 @@
+# 중위연령, 평균연령을 가져오는 aver_mid_age collector입니다 
 from collectors.common import build_url_with_dynamic_period, fetch_to_df,replace_latest_dated_file
 from utils.file_utils import ensure_parent_dir
 from utils.metadata import update_meta
@@ -60,4 +61,4 @@ def run(cfg: dict):
         "max_date": wide["date"].max(),
     })
 
-    print("✅ AVER_MID_AGE 저장:", out_csv, "rows:", len(wide), "max_date:", wide["date"].max())
+    print("✅ Aver_Mid_Age 저장:", out_csv, "rows:", len(wide), "max_date:", wide["date"].max())

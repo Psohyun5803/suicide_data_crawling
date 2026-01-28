@@ -1,4 +1,4 @@
-# collectors/labor_force.py
+# 경제활동인구, 비경제활동인구, 취업자 , 실업자, 경제활동참가율, 실업률, 고용률을 수집하는 labor_force collector 입니다 
 import pandas as pd
 from pathlib import Path
 
@@ -11,7 +11,6 @@ METADATA_PATH = "../data/metadata/metadata.json"
 
 def normalize_item(name: str) -> str:
     s = str(name).strip()
-    if "취업률" in s: return "취업률"
     if "실업률" in s: return "실업률"
     if "고용률" in s: return "고용률"
     if "경제활동참가율" in s: return "경제활동참가율"
@@ -39,7 +38,7 @@ def run(cfg: dict) -> dict:
 
     # 4) 필요한 항목만 필터 
     df2[item_col] = df2[item_col].astype(str).str.strip()
-    pat = "경제활동인구|비경제활동인구|취업자|실업자|경제활동참가율|취업률|실업률|고용률"
+    pat = "경제활동인구|비경제활동인구|취업자|실업자|경제활동참가율|실업률|고용률"
     df2 = df2[df2[item_col].str.contains(pat, na=False)].copy()
 
     # 5) 타입 정리
@@ -62,7 +61,7 @@ def run(cfg: dict) -> dict:
     wide = wide.rename(columns=normalize_item)
 
     # 9) 컬럼 선택
-    wanted_cols = ["경제활동인구", "비경제활동인구", "취업자", "실업자", "취업률", "실업률", "고용률", "경제활동참가율"]
+    wanted_cols = ["경제활동인구", "비경제활동인구", "취업자", "실업자", "실업률", "고용률", "경제활동참가율"]
     final_cols = [c for c in wanted_cols if c in wide.columns]
     wide = wide[final_cols]
 

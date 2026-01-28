@@ -1,3 +1,4 @@
+#소비자 물가 등락률을 가져오는 consumer_price_change_index collector 입니다 
 from collectors.common import build_url_with_dynamic_period, fetch_to_df,replace_latest_dated_file
 from utils.file_utils import ensure_parent_dir
 from utils.metadata import update_meta
@@ -40,4 +41,4 @@ def run(cfg: dict):
         "max_date": df["date"].max(),
     })
 
-    print("✅ Customer_Price_Change_Index 저장:", out_csv, "rows:", len(df), "max_date:", df["date"].max())
+    print("✅ Consumer_Price_Change_Index 저장:", out_csv, "rows:", len(df), "max_date:", df["date"].max())

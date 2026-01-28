@@ -29,12 +29,13 @@ def run(cfg: dict):
         sleep_s=0.3
     ) # 40000셀 제한으로 인해 6개월 단위로 끊어서 데이터를 가져옵니다
     
+    
     # 전처리
     raw.columns = raw.columns.astype(str).str.strip()
 
     # 전국 데이터만
-    raw["C1_NM"] = raw["C1_NM"].astype(str).str.strip()
-    raw = raw[raw["C1_NM"] == "전국"].copy()
+    #raw["C1_NM"] = raw["C1_NM"].astype(str).str.strip()
+    #raw = raw[raw["C1_NM"] == "전국"].copy()
 
     # 필요한 컬럼 체크
     need = ["PRD_DE", "ITM_NM", "C2_NM", "DT"]
@@ -97,6 +98,6 @@ def run(cfg: dict):
         "rows": int(out.shape[0]),
         "max_date": out["date"].max() if not out.empty else None,
     })
-
+    
     print("✅ Resident_Population 저장:", out_csv, "rows:", len(out), "max_date:", out["date"].max())
     

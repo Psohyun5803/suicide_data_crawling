@@ -1,3 +1,4 @@
+# collector 들이 공통적으로 사용하는 함수를 담은 common.py 파일입니다 
 import datetime as dt
 from urllib.parse import urlparse, parse_qs, urlunparse, urlencode
 
@@ -6,7 +7,7 @@ import requests
 from pathlib import Path
 import time 
 
-def _set_query(url: str, **kwargs) -> str:
+def _set_query(url: str, **kwargs) -> str: # url의 쿼리 부분을 가져와서 쿼리를 바꾼 url을 return 합니다
     u = urlparse(url)
     q = parse_qs(u.query)
     for k, v in kwargs.items():
@@ -22,7 +23,7 @@ def _add_months(d: dt.date, months: int) -> dt.date:
 def iter_ym_chunks_6m(start_ym: str, end_ym: str):
     """
     start_ym/end_ym: 'YYYYMM'
-    yields: (chunk_start_ym, chunk_end_ym) where each chunk spans up to 6 months.
+    데이터를 6개월 단위로 끊어서 가져옵니다.
     """
     s = dt.date(int(start_ym[:4]), int(start_ym[4:]), 1)
     e = dt.date(int(end_ym[:4]), int(end_ym[4:]), 1)
@@ -60,17 +61,17 @@ def fetch_kosis_by_6m(openapi_url: str, start_ym: str, end_ym: str, fetch_to_df,
 
     out = pd.concat(frames, ignore_index=True)
 
-    # 중복 제거(가끔 기간 겹침/서버 중복 응답 대비)
+    # 중복 제거(기간 겹침/서버 중복 응답 대비)
     out = out.drop_duplicates()
     return out
 
-def replace_latest_dated_file(base_path: str) -> str:
+def replace_latest_dated_file(base_path: str) -> str: # 갱신 당일의 날짜를 기존 파일명 뒤에 붙입니다
     """
     같은 디렉터리 내의 *_latest_*.csv 를 모두 삭제하고
     오늘 날짜의 *_latest_YYYYMMDD.csv 경로를 반환
     """
     p = Path(base_path)
-    pattern = f"{p.stem}_*{p.suffix}"   # loan_latest_*.csv
+    pattern = f"{p.stem}_*{p.suffix}"   
 
     # 기존 latest_날짜 파일 전부 삭제
     for f in p.parent.glob(pattern):
@@ -99,13 +100,13 @@ def fetch_to_df(url: str) -> pd.DataFrame:
 
     data = r.json()
 
-    # ✅ 1) 정상 케이스: list[dict]
+    # ✅  정상적으로 데이터를 가져왔을 경우 list[dict]
     if isinstance(data, list):
         return pd.DataFrame(data)
 
     # ✅ 2) dict 케이스: 에러 or 래핑된 결과
     if isinstance(data, dict):
-        # (A) KOSIS "데이터 없음"은 err=30 → 예외가 아니라 빈 DF로 처리
+        # (A) KOSIS "데이터 없음"은 err=30 → 예외가 아니라 빈 DF로 처리합니다 -> fetch_6m을 위해서
         if str(data.get("err", "")).strip() == "30":
             return pd.DataFrame()
 

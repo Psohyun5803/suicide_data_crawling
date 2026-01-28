@@ -1,3 +1,4 @@
+# working_index.py  columns =[전체임금총액, 전체근로일수, 전체근로시간]
 from collectors.common import build_url_with_dynamic_period, fetch_to_df,replace_latest_dated_file,fetch_kosis_by_6m
 from utils.file_utils import ensure_parent_dir
 from utils.metadata import update_meta

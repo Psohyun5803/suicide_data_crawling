@@ -1,3 +1,4 @@
+# gdp, gni를 가져오는  gdp_gni collector 입니다 
 from collectors.common import build_url_with_dynamic_period, fetch_to_df,replace_latest_dated_file
 from utils.file_utils import ensure_parent_dir
 from utils.metadata import update_meta
