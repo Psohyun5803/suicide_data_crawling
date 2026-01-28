@@ -12,8 +12,11 @@ def run(cfg: dict):
      # 1) 수집
     url = build_url_with_dynamic_period(cfg["openapi_url"], cfg.get("start_ym",))
     raw = fetch_to_df(url)
-
+    
     # 2) 전처리(collector에 포함)
+    raw["C1_NM"] = raw["C1_NM"].astype(str).str.strip()
+    raw = raw[raw["C1_NM"].eq("총지수")].copy()
+
     df = raw[["PRD_DE", "DT"]].copy()
     df.columns = df.columns.astype(str).str.strip()
     df = df.rename(columns={
