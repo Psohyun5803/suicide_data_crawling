@@ -3,6 +3,7 @@ from collectors.common import build_url_with_dynamic_period, fetch_to_df,replace
 from utils.file_utils import ensure_parent_dir
 from utils.metadata import update_meta
 
+
 import pandas as pd
 
 METADATA_PATH = "../data/metadata/metadata.json"
@@ -21,7 +22,7 @@ def run(cfg: dict):
     df["cpi"] = pd.to_numeric(df["cpi"], errors="coerce")
     df["date"] = pd.to_datetime(df["date"], format="%Y%m").dt.strftime("%Y-%m")
     df = df.sort_values("date").reset_index(drop=True)
-
+    
     # 3) 저장
     out_csv = cfg["output_csv"]
     ensure_parent_dir(out_csv)

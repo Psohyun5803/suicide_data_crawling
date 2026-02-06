@@ -2,7 +2,7 @@
 from collectors.common import build_url_with_dynamic_period, fetch_to_df,replace_latest_dated_file 
 from utils.file_utils import ensure_parent_dir
 from utils.metadata import update_meta
-
+from parser.apply_denton import denton_with_dates
 import pandas as pd
 
 METADATA_PATH = "../data/metadata/metadata.json"
@@ -35,7 +35,7 @@ def run(cfg: dict):
     wide = wide[[c for c in wanted if c in wide.columns]].reset_index()
     wide = wide.rename(columns={date_col: "date"})
     wide["date"] = pd.to_datetime(wide["date"], format="%Y%m").dt.strftime("%Y-%m")
-
+    wide = denton_with_dates(wide ,date_col="date",value_cols=None) ## denton 추가 
     # 3) 저장
     out_csv = cfg["output_csv"]
     ensure_parent_dir(out_csv)

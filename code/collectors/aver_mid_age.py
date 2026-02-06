@@ -2,6 +2,7 @@
 from collectors.common import build_url_with_dynamic_period, fetch_to_df,replace_latest_dated_file
 from utils.file_utils import ensure_parent_dir
 from utils.metadata import update_meta
+from parser.year_to_month import expand_year_to_months
 
 import pandas as pd
 
@@ -44,7 +45,8 @@ def run(cfg: dict):
         wide["date"] = pd.to_datetime(wide["date"], format="%Y%m").dt.strftime("%Y-%m")
     else:
         wide["date"] = pd.to_datetime(wide["date"], format="%Y").dt.strftime("%Y")
-    
+
+    wide = expand_year_to_months(wide ,year_col="date",value_cols=None) # 연 데이터 복사해서 월별로 
     # 3) 저장
     out_csv = cfg["output_csv"]
     ensure_parent_dir(out_csv)
