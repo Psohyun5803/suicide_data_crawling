@@ -85,7 +85,7 @@ def denton_with_dates(df_quarter, date_col="date", value_cols="value" ):
         y = pd.to_numeric(df_quarter[col], errors="raise").values
         x_month = apply_denton(y)
         df_month[col] = x_month
-    plot_all_columns_one_figure(df_month)
+    #plot_all_columns_one_figure(df_month)
     return df_month
 
 #시각화 테스트 용 함수 

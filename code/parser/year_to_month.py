@@ -7,10 +7,17 @@ def expand_year_to_months(df_year, year_col="date", value_cols=None):
     if value_cols is None:
         value_cols = [c for c in df_year.columns if c != year_col]
 
+
     rows = []
     for _, row in df_year.iterrows():
-        # 각 행을 순회한다 
-        year = int(row[year_col])
+        y = row[year_col]
+
+        # year 안전하게 추출
+        if isinstance(y, pd.Timestamp):
+            year = y.year
+        else:
+            year = int(str(y)[:4])  # "2020", "2020-01" 같은 것도 처리
+
         for m in range(1, 13):
             new_row = {"date": f"{year}-{m:02d}"}
             for col in value_cols:
