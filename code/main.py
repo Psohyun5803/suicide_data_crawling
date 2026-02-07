@@ -24,7 +24,7 @@ def main():
         cfg = config["collectors"].get(name, {})
         fn(cfg)
     
-    concat_database.run()
+    concat_database.run(config["collectors"].get("concat_database", {}))
 
 if __name__ == "__main__":
     main()
